@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Transformable Bottleneck Networks</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-social.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/modern-business.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+  </head>
+  <body>
+  <div class="container">
+      <div class="row">
+        <div class="text-center">
+          <h1 class="text-center">NeROIC: Neural Rendering of Objects from Online Image Collections</h1>
+		  <h3 class="text-center"><a href="http://zhengfeikuang.com">Zhengfei Kuang</a>, <a href="http://kyleolszewski.com">Kyle Olszewski</a>, <a href="https://mlchai.com/">Menglei Chai</a>, <a href="https://zeng.science/">Zeng Huang</a>, </a><a href="http://stulyakov.com">Sergey Tulyakov</a></h3>
+          <h3 class="text-center"><a href="https://www.cs.usc.edu/">University of Southern California</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://www.snap.com/">Snap Inc.</a></h3>
+          <h3 class="text-center"><a href="http://ict.usc.edu/groups/visiongraphics/">USC Institute for Creative Technologies</a></h3>
+          <h2 class="text-center">Abstract</h2>
+	      <div class="col-md-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 text-justify">
+            We present a novel method to acquire object representations from online image collections, 
+			capturing high-quality geometry and material properties of arbitrary objects from photographs with varying cameras, 
+			illumination, and back-grounds. This enables various object-centric rendering applications such as novel-view synthesis, 
+			relighting, and harmonized background composition from challenging in-the-wild input.  
+			Using a multi-stage approach extending neuralradiance fields, we first infer the surface geometry and refine 
+			the coarsely estimated initial camera parameters, while leveraging coarse foreground object masks to improve the training 
+			efficiency and geometry quality. We also introduce a robust normal estimation technique which eliminates the effect of 
+			geometric noise while retaining crucial details. Lastly, we extract surface material properties and ambient illumination, 
+			represented in spherical harmonics with extensions that handle transient elements, e.g. sharp shadows.
+			The union of these components results in a highly modular and efficient object acquisition framework. 
+			Extensive evaluations and comparisons demonstrate the advantages of our approach in capturing high-quality geometry 
+			and appearance properties useful for rendering applications.
+		  </div>
+          <div class="row">
+	        <div class="col-xs-12 col-md-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2">
+	          <h2 class="page-header">Spotlight video</h2>
+	          <div class="embed-responsive embed-responsive-16by9">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/AdeFJbS6XCs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+	        </div>
+
+            <div class="row">
+	          <table align="center" width="300px">
+		        <tbody><tr>
+		            <td align="center" width="50px">
+		              <center>
+			            <span style="font-size:24px"><a href="https://arxiv.org/abs/1904.06458">[Paper]</a>
+		              </span></center>
+		            </td>
+		            <td align="center" width="50px">
+		              <center>
+			            <span style="font-size:24px"><a href="https://github.com/kyleolsz/TB-Networks">[GitHub]</a></span>
+		              </center>
+		            </td>
+	          </tr></tbody></table>
+            </div>
+			
+			<h2 class="text-center">&nbsp;</h2>
+			<h2 class="page-header">Architecture</h2>
+			<h1 class="text-center"><img src="figures/tbn-architecture.png" width="1166" height="447" alt=""/></h1>
+	      	<div class="col-md-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 text-justify">
+              <p>The TBN architecture consists of three parts: 2D-3D encoder followed by a resampling layer, and a 3D-2D decoder network. The resampling layer transforms an encoded bottleneck to the target view via trilinear interpolation. During training TBNs use 2D supervision only, including RGB images and foreground masks.</p>
+			</div>
+			<h2 class="text-center">&nbsp;</h2>
+			<h2 class="text-center">&nbsp;</h2>
+			<h2 class="text-center">&nbsp;</h2>
+			<h2 class="page-header">Novel View Synthesis</h2>
+			<h1 class="text-center"><img src="figures/nvs-examples.gif" width="1080" height="480" alt=""/></h1>
+	      	<div class="col-md-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 text-justify">
+              <p>TBNs can be efficiently trained on a variety of diverse objects. We show TBN generated novel views of chairs, cars, and humans. We note that TBNs can generate intermediate views of objects not seen during training. To perform novel view synthesis we simply rotate the transformable bottleneck and decode it.</p>
+	      	</div>
+			<h2 class="text-center">&nbsp;</h2>
+			<h2 class="text-center">&nbsp;</h2>
+			<h2 class="text-center">&nbsp;</h2>
+			<h2 class="page-header">Material Decomposition</h2>
+			<h1 class="text-center"><img src="figures/3d-reconstruction.png" width="1080" height="480" alt=""/></h1>
+	      	<div class="col-md-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 text-justify">
+              <p>We trained a simple occupancy decoder applied on the transformable bottleneck. No 3D information was used during training, TBNs learn to reconstruct 3D structure of objects in the bottleneck using only 2D supervision. We then extract 3D meshes of objects represented using in the bottleneck. Given only a single input image a TBN can generate arbitrary number of novel views of this object and reuse them refining the predicted 3D shapes. We then use images of real objects to reconstruct their 3D shape and 3D print the predicted meshes.</p>
+	      	</div>
+			<h2 class="text-center">&nbsp;</h2>
+			<h2 class="text-center">&nbsp;</h2>
+			<h2 class="text-center">&nbsp;</h2>
+			<h2 class="text-center">&nbsp;</h2>
+			<h2 class="page-header">Relighting</h2>
+			<h1 class="text-center"><img src="figures/manipulations.gif" width="1080" height="480" alt=""/></h1>
+	      	<div class="col-md-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 text-justify">
+              <p>We apply various manipulations directly on the transformable bottlenecks and decode them to obtain images. We note that the manipulations applied on the bottleneck translate to the same manipulations in the image space. TBNs can then render such manipulated object under various novel views. We show vertical twisting, where the bottom part of the chair is rotated to the direction opposite to the top part of the chair. Horisontal stitching, where the seat of the chair is moved up and down making a regular chair look like a bar stool. Nonlinear inflation, where all the parts of chairs are inflated and deflated. We note that under all these creative manipulations the objects still look realistic.</p>
+	      	</div>
+			<h2 class="text-center">&nbsp;</h2>
+			<h2 class="text-center">&nbsp;</h2>
+			<h2 class="text-center">&nbsp;</h2>
+			<h2 class="text-center">&nbsp;</h2>
+			<h1 class="page-header"><img src="figures/interactive-manip.gif" width="1080" height="480" alt=""/></h1>
+	      	<div class="col-md-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 text-justify">
+              <p>We use our approach to interactively rotate and deform objects inferred from real images before composing them into a target image. Given the 2 real images seen below and their estimated relative poses, a single aggregated bottleneck is computed. An interactive interface then allows the user to rotate, translate, scale and stretch the objects, thus transforming and rendering the bottleneck in real-time.</p>
+	      	</div>
+			<h2 class="text-center">&nbsp;</h2>
+			<h1 class="text-center">&nbsp;</h1>
+			<img src="figures/chair_0.png" width="156" height="156" alt=""/><img src="figures/chair_1.png" width="156" height="156" alt=""/>
+	        <!-- <div class="col-md-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 text-justify">
+	          <h2 class="page-header">Citation</h2>
+
+	          <pre>@article{olszewski2019tbn,
+title={Transformable Bottleneck Networks},
+author={Olszewski, Kyle and Tulyakov, Sergey and Woodford, Oliver and Li, Hao and Luo, Linjie},
+journal={The IEEE International Conference on Computer Vision (ICCV)},
+month={Nov},
+year={2019}
+}
+	          </pre>
+            </div> -->
+
+	      </div>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>
