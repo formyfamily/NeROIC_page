@@ -1,130 +1,257 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>NeROIC: Neural Object Capture and Rendering from Online Image Collections</title>
+
+    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Neural Rendering of Objects from Online Image Collections</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-social.css" rel="stylesheet">
-    <link href="css/custom.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="css/modern-business.css" rel="stylesheet">
-    <!-- Custom Fonts -->
-    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- <base href="/"> -->
 
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./resources/bootstrap.min.css">
+    <link rel="stylesheet" href="./resources/font-awesome.min.css">
+    <link rel="stylesheet" href="./resources/codemirror.min.css">
+    <link rel="stylesheet" href="./resources/app.css">
+    <link rel="stylesheet" href="./resources/bootstrap.min(1).css">
 
-  </head>
-  <body>
-  <div class="container">
-      <div class="row">
-        <div class="text-center">
-          <h1 class="text-center">NeROIC: Neural Rendering of Objects from Online Image Collections</h1>
-		  <h3 class="text-center"><a href="http://zhengfeikuang.com">Zhengfei Kuang</a>, <a href="http://kyleolszewski.com">Kyle Olszewski</a>, <a href="https://mlchai.com/">Menglei Chai</a>, <a href="https://zeng.science/">Zeng Huang</a>, </a><a href="http://stulyakov.com">Sergey Tulyakov</a></h3>
-          <h3 class="text-center"><a href="https://www.cs.usc.edu/">University of Southern California</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://www.snap.com/">Snap Inc.</a></h3>
-          <h3 class="text-center"><a href="http://ict.usc.edu/groups/visiongraphics/">USC Institute for Creative Technologies</a></h3>
-          <h2 class="text-center">Abstract</h2>
-	      <div class="col-md-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 text-justify">
-            We present a novel method to acquire object representations from online image collections, 
-			capturing high-quality geometry and material properties of arbitrary objects from photographs with varying cameras, 
-			illumination, and back-grounds. This enables various object-centric rendering applications such as novel-view synthesis, 
-			relighting, and harmonized background composition from challenging in-the-wild input.  
-			Using a multi-stage approach extending neuralradiance fields, we first infer the surface geometry and refine 
-			the coarsely estimated initial camera parameters, while leveraging coarse foreground object masks to improve the training 
-			efficiency and geometry quality. We also introduce a robust normal estimation technique which eliminates the effect of 
-			geometric noise while retaining crucial details. Lastly, we extract surface material properties and ambient illumination, 
-			represented in spherical harmonics with extensions that handle transient elements, e.g. sharp shadows.
-			The union of these components results in a highly modular and efficient object acquisition framework. 
-			Extensive evaluations and comparisons demonstrate the advantages of our approach in capturing high-quality geometry 
-			and appearance properties useful for rendering applications.
-		  </div>
-          <div class="row">
-	        <div class="col-xs-12 col-md-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2">
-	          <h2 class="page-header">Spotlight video</h2>
-	          <div class="embed-responsive embed-responsive-16by9">
-                <iframe width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              </div>
-	        </div>
+    <script src="./resources/jquery.min.js"></script>
+    <script src="./resources/bootstrap.min.js"></script>
+    <script src="./resources/codemirror.min.js"></script>
+    <script src="./resources/clipboard.min.js"></script>
 
-            <div class="row">
-	          <table align="center" width="300px">
-		        <tbody><tr>
-		            <td align="center" width="50px">
-		              <center>
-			            <span style="font-size:24px"><a href="https://arxiv.org/abs/1904.06458">[Paper]</a>
-		              </span></center>
-		            </td>
-		            <td align="center" width="50px">
-		              <center>
-			            <span style="font-size:24px"><a href="https://github.com/kyleolsz/TB-Networks">[GitHub]</a></span>
-		              </center>
-		            </td>
-	          </tr></tbody></table>
+    <script src="./resources/app.js"></script>
+</head>
+
+
+<body>
+<div class="container" id="main">
+    <div class="row">
+        <h2 class="col-md-12 text-center">
+            NeROIC: Neural Object Capture and Rendering from Online Image Collections<br>
+        </h2>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <ul class="list-inline">
+                <li>
+                    <a href="zhengfeikuang.com">
+                        Zhengfei Kuang
+                    </a>
+                    <br>University of Southern California
+                </li>
+                <li>
+                    <a href="https://kyleolsz.github.io/">
+                        Kyle Olszewski
+                    </a>
+                    <br>Snap Inc.
+                </li>
+                <li>
+                    <a href="https://mlchai.com/">
+                        Menglei Chai
+                    </a>
+                    <br>Snap Inc.
+                </li>
+                <li>
+                    <a href="https://zeng.science/">
+                        Zeng Huang
+                    </a>
+                    <br>Snap Inc.
+                </li>
+                <li>
+                    <a href="http://www.stulyakov.com/">
+                        Sergey Tulyakov
+                    </a>
+                    <br>Snap Inc.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 text-center">
+            <ul class="nav nav-pills nav-justified">
+                <li>
+                    <a href="">
+                        <img src="resources/paper-min.png" height="60px">
+                        <h4><strong>Paper</strong></h4>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://youtu.be/qOfV35y_ppc">
+                        <img src="resources/youtube_icon.png" height="60px">
+                        <h4><strong>Video</strong></h4>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <img src="resources/github.png" height="60px"/>
+                        <h4><strong>Code</strong></h4>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h3>
+                Abstract
+            </h3>
+            <p class="text-justify">
+                We present a novel method to acquire object representations from online image collections, 
+                capturing high-quality geometry and material properties of arbitrary objects from photographs with varying cameras, 
+                illumination, and backgrounds.
+                This enables various object-centric rendering applications such as novel-view synthesis, relighting, 
+                and harmonized background composition from challenging in-the-wild input.
+                Using a multi-stage approach extending neural radiance fields, we first infer the surface geometry and refine the coarsely
+                estimated initial camera parameters, while leveraging coarse foreground object masks to improve the
+                training efficiency and geometry quality.
+                We also introduce a robust normal estimation technique which eliminates the effect of geometric noise while retaining 
+                crucial details. Lastly, we extract surface material properties and ambient illumination, represented in spherical harmonics 
+                with extensions that handle transient elements, \eg sharp shadows. The union of these components results in a highly modular 
+                and efficient object acquisition framework. Extensive evaluations and comparisons demonstrate the advantages of our approach 
+                in capturing high-quality geometry and appearance properties useful for rendering applications.
+            </p>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h3>
+                Video
+            </h3>
+            <div class="text-center">
+                <div style="position:relative;padding-top:56.25%;">
+                    <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;"
+                            src= "https://youtu.be/qOfV35y_ppc" title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                </div>
             </div>
-			
-			<h2 class="text-center">&nbsp;</h2>
-			<h2 class="page-header">Architecture</h2>
-			<h1 class="text-center"><img src="figures/tbn-architecture.png" width="1166" height="447" alt=""/></h1>
-	      	<div class="col-md-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 text-justify">
-              <p>The TBN architecture consists of three parts: 2D-3D encoder followed by a resampling layer, and a 3D-2D decoder network. The resampling layer transforms an encoded bottleneck to the target view via trilinear interpolation. During training TBNs use 2D supervision only, including RGB images and foreground masks.</p>
-			</div>
-			<h2 class="text-center">&nbsp;</h2>
-			<h2 class="text-center">&nbsp;</h2>
-			<h2 class="text-center">&nbsp;</h2>
-			<h2 class="page-header">Novel View Synthesis</h2>
-			<h1 class="text-center"><img src="figures/nvs-examples.gif" width="1080" height="480" alt=""/></h1>
-	      	<div class="col-md-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 text-justify">
-              <p>TBNs can be efficiently trained on a variety of diverse objects. We show TBN generated novel views of chairs, cars, and humans. We note that TBNs can generate intermediate views of objects not seen during training. To perform novel view synthesis we simply rotate the transformable bottleneck and decode it.</p>
-	      	</div>
-			<h2 class="text-center">&nbsp;</h2>
-			<h2 class="text-center">&nbsp;</h2>
-			<h2 class="text-center">&nbsp;</h2>
-			<h2 class="page-header">Material Decomposition</h2>
-			<h1 class="text-center"><img src="figures/3d-reconstruction.png" width="1080" height="480" alt=""/></h1>
-	      	<div class="col-md-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 text-justify">
-              <p>We trained a simple occupancy decoder applied on the transformable bottleneck. No 3D information was used during training, TBNs learn to reconstruct 3D structure of objects in the bottleneck using only 2D supervision. We then extract 3D meshes of objects represented using in the bottleneck. Given only a single input image a TBN can generate arbitrary number of novel views of this object and reuse them refining the predicted 3D shapes. We then use images of real objects to reconstruct their 3D shape and 3D print the predicted meshes.</p>
-	      	</div>
-			<h2 class="text-center">&nbsp;</h2>
-			<h2 class="text-center">&nbsp;</h2>
-			<h2 class="text-center">&nbsp;</h2>
-			<h2 class="text-center">&nbsp;</h2>
-			<h2 class="page-header">Relighting</h2>
-			<h1 class="text-center"><img src="figures/manipulations.gif" width="1080" height="480" alt=""/></h1>
-	      	<div class="col-md-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 text-justify">
-              <p>We apply various manipulations directly on the transformable bottlenecks and decode them to obtain images. We note that the manipulations applied on the bottleneck translate to the same manipulations in the image space. TBNs can then render such manipulated object under various novel views. We show vertical twisting, where the bottom part of the chair is rotated to the direction opposite to the top part of the chair. Horisontal stitching, where the seat of the chair is moved up and down making a regular chair look like a bar stool. Nonlinear inflation, where all the parts of chairs are inflated and deflated. We note that under all these creative manipulations the objects still look realistic.</p>
-	      	</div>
-			<h2 class="text-center">&nbsp;</h2>
-			<h2 class="text-center">&nbsp;</h2>
-			<h2 class="text-center">&nbsp;</h2>
-			<h2 class="text-center">&nbsp;</h2>
-			<h1 class="page-header"><img src="figures/interactive-manip.gif" width="1080" height="480" alt=""/></h1>
-	      	<div class="col-md-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 text-justify">
-              <p>We use our approach to interactively rotate and deform objects inferred from real images before composing them into a target image. Given the 2 real images seen below and their estimated relative poses, a single aggregated bottleneck is computed. An interactive interface then allows the user to rotate, translate, scale and stretch the objects, thus transforming and rendering the bottleneck in real-time.</p>
-	      	</div>
-			<h2 class="text-center">&nbsp;</h2>
-			<h1 class="text-center">&nbsp;</h1>
-			<img src="figures/chair_0.png" width="156" height="156" alt=""/><img src="figures/chair_1.png" width="156" height="156" alt=""/>
-	        <!-- <div class="col-md-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 text-justify">
-	          <h2 class="page-header">Citation</h2>
+        </div>
+    </div>
 
-	          <pre>@article{olszewski2019tbn,
-title={Transformable Bottleneck Networks},
-author={Olszewski, Kyle and Tulyakov, Sergey and Woodford, Oliver and Li, Hao and Luo, Linjie},
-journal={The IEEE International Conference on Computer Vision (ICCV)},
-month={Nov},
-year={2019}
-}
-	          </pre>
-            </div> -->
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h3>
+                Overview
+            </h3>
+            <img src="./resources/framework.png" class="img-responsive" alt="overview"><br>
+            <p class="text-justify">
+                Our two-stage model takes images of an object from different conditions as input. 
+                With the camera poses of images and object foreground masks acquired by other state-of-the-art methods, 
+                We first optimize the geometry of scanned object and refine camera poses by training a NeRF-based network; 
+                We then compute the surface normal from the geometry (represented by density function) using our normal extraction layer;
+                Finally, our second stage model decomposes the material properties of the object and solves lighting condition of each image. 
+            </p>
+            </p>
+        </div>
+    </div>
 
-	      </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h3>
+                Novel View Synthesis
+            </h3>
+            <p class="text-justify">
+                We compare our model with the First Order Motion Model (FOMM). Due to much improved motion representations
+		our model shows substantially better results when articulated objects are animated. 
+		Our model generates impressive animations even when the poses of the source and the driving are significantly 
+		different. Each generated video has 384x384 resolution.</p>
+            <br>
+                 
+        </div>
+	<div class="col-md-12" >
+	<div class="col-md-6">
+	        <video id="v0" width="100%" autoplay="" loop="" muted="" controls="">
+                     <source src="videos/ted-comparison/example1.mp4"
+                         type="video/mp4"/>
+                </video>
+	</div>
+
+	</div>
+    </div>
+
+    <div class="row">
+	<div class="col-xs-12" style="height:20px;"></div>
+
+        <div class="col-md-8 col-md-offset-2">
+            <h3>
+                Material Decomposition
+            </h3>
+            <p class="text-justify">
+            <br>
         </div>
 
-      </div>
+	<div class="col-xs-12" style="height:20px;"></div>
+
+	<div class="col-md-12">
+		<div class="col-md-6">
+                        <video id="v3" width="100%" autoplay="" loop="" muted="" controls="">
+                            <source src="videos/taichi-comparison/example1.mp4"
+                                    type="video/mp4"/>
+                        </video>
+		</div>
+	</div>
     </div>
-  </body>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h3>
+                Relighting
+            </h3>
+            <p class="text-justify">
+	          Our model shows improvements on the MGif dataset. Local shape and identity details of each character 
+		  are better preserved compared with FOMM.
+            <br>
+        </div>
+
+	<div class="col-xs-12" style="height:20px;"></div>
+        <div class="col-md-12 col-md-offset-1">
+	   
+        <div class="col-md-5">
+            <video id="v7" width="90%" autoplay="" loop="" muted="" controls="">
+                <source src="videos/mgif/example1.mp4"
+                        type="video/mp4"/>
+            </video>
+	</div>
+        </div>
+    </div>
+
+    <!-- <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h3>
+                Citation
+            </h3>
+            <div class="form-group col-md-10 col-md-offset-1">
+                    <textarea id="bibtex" class="form-control" readonly="" style="display: none;">
+@inproceedings{siarohin2021motion,
+        author={Siarohin, Aliaksandr and Woodford, Oliver and Ren, Jian and Chai, Menglei and Tulyakov, Sergey},
+        title={Motion Representations for Articulated Animation},
+        booktitle = {CVPR},
+        year = {2021}
+}</textarea>
+                <div class="CodeMirror cm-s-default CodeMirror-wrap">
+                    <div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 4px;"></div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2" >
+        <p style="color:gray; text-align:right" >
+            The website template was borrowed from <a href="http://mgharbi.com/">Michaël Gharbi</a>.
+        </p>
+        </div>
+    </div>
+</div>
+</body>
 </html>
