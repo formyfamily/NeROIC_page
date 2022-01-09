@@ -156,73 +156,72 @@
     </div>
 
     <div class="row">
+	    <div class="col-xs-12" style="height:20px;"></div>
         <div class="col-md-8 col-md-offset-2">
             <h3>
                 Novel View Synthesis
             </h3>
             <p class="text-justify">
-                We compare our model with the First Order Motion Model (FOMM). Due to much improved motion representations
-		our model shows substantially better results when articulated objects are animated. 
-		Our model generates impressive animations even when the poses of the source and the driving are significantly 
-		different. Each generated video has 384x384 resolution.</p>
-            <br>
-                 
+                Given online images from a common object, our model can synthesis novel views of the object 
+                with the lighting condition from the training images. </p>
+            <br> 
         </div>
-	<div class="col-md-12" >
-	<div class="col-md-6">
-	        <video id="v0" width="100%" autoplay="" loop="" muted="" controls="">
-                     <source src="videos/ted-comparison/example1.mp4"
-                         type="video/mp4"/>
-                </video>
-	</div>
 
-	</div>
+        <div class="col-md-8 col-md-offset-2">
+            <video id="v0" width="100%" autoplay="" loop="" muted="" controls="">
+                <source src="videos/nvs.mp4"
+                        type="video/mp4"/>
+            </video>
+        </div>
+
+        <div class="col-xs-8 col-md-offset-2" style="height:40px;"></div>
+        <div class="col-xs-8 col-md-offset-2">
+            <img src="./resources/nvs.png" class="img-responsive" alt="overview"><br>
+        </div>
     </div>
 
     <div class="row">
-	<div class="col-xs-12" style="height:20px;"></div>
+	    <div class="col-xs-12" style="height:20px;"></div>
 
         <div class="col-md-8 col-md-offset-2">
             <h3>
                 Material Decomposition
             </h3>
             <p class="text-justify">
+                Material Decomposition
             <br>
         </div>
 
-	<div class="col-xs-12" style="height:20px;"></div>
-
-	<div class="col-md-12">
-		<div class="col-md-6">
-                        <video id="v3" width="100%" autoplay="" loop="" muted="" controls="">
-                            <source src="videos/taichi-comparison/example1.mp4"
-                                    type="video/mp4"/>
-                        </video>
-		</div>
-	</div>
+        <div class="col-md-8 col-md-offset-2">
+            <video id="v0" width="100%" autoplay="" loop="" muted="" controls="">
+                <source src="videos/material.mp4"
+                        type="video/mp4"/>
+            </video>
+        </div>  
+        
+        <div class="col-xs-8 col-md-offset-2" style="height:40px;"></div>
+        <div class="col-xs-8 col-md-offset-2">
+            <img src="./resources/material.png" class="img-responsive" alt="overview"><br>
+        </div>
     </div>
 
     <div class="row">
+        <div class="col-xs-12" style="height:20px;"></div>
         <div class="col-md-8 col-md-offset-2">
             <h3>
                 Relighting
             </h3>
             <p class="text-justify">
-	          Our model shows improvements on the MGif dataset. Local shape and identity details of each character 
-		  are better preserved compared with FOMM.
+                Relighting
             <br>
         </div>
 
-	<div class="col-xs-12" style="height:20px;"></div>
-        <div class="col-md-12 col-md-offset-1">
-	   
-        <div class="col-md-5">
-            <video id="v7" width="90%" autoplay="" loop="" muted="" controls="">
-                <source src="videos/mgif/example1.mp4"
+        <div class="col-md-8 col-md-offset-2">
+            <video id="v0" width="100%" autoplay="" loop="" muted="" controls="">
+                <source src="videos/relighting.mp4"
                         type="video/mp4"/>
             </video>
-	</div>
-        </div>
+        </div>  
     </div>
 
     <!-- <div class="row">
