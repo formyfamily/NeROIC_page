@@ -62,6 +62,12 @@
                     <br>Snap Inc.
                 </li>
                 <li>
+                    <a href="https://ai.stanford.edu/~optas/">
+                        Panos Achlioptas
+                    </a>
+                    <br>Snap Inc.
+                </li>
+                <li>
                     <a href="http://www.stulyakov.com/">
                         Sergey Tulyakov
                     </a>
@@ -149,7 +155,7 @@
                 With the camera poses of images and object foreground masks acquired by other state-of-the-art methods, 
                 We first optimize the geometry of scanned object and refine camera poses by training a NeRF-based network; 
                 We then compute the surface normal from the geometry (represented by density function) using our normal extraction layer;
-                Finally, our second stage model decomposes the material properties of the object and solves lighting condition of each image. 
+                Finally, our second stage model decomposes the material properties of the object and solves for the lighting conditions for each image. 
             </p>
             </p>
         </div>
@@ -162,8 +168,8 @@
                 Novel View Synthesis
             </h3>
             <p class="text-justify">
-                Given online images from a common object, our model can synthesis novel views of the object 
-                with the lighting condition from the training images. </p>
+                Given online images from a common object, our model can synthesize novel views of the object 
+                with the lighting conditions from the training images. </p>
             <br> 
         </div>
 
@@ -223,26 +229,23 @@
             </video>
         </div>  
     </div>
-
-    <!-- <div class="row">
+    
+    <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <h3>
                 Citation
             </h3>
-            <div class="form-group col-md-10 col-md-offset-1">
-                    <textarea id="bibtex" class="form-control" readonly="" style="display: none;">
-@inproceedings{siarohin2021motion,
-        author={Siarohin, Aliaksandr and Woodford, Oliver and Ren, Jian and Chai, Menglei and Tulyakov, Sergey},
-        title={Motion Representations for Articulated Animation},
-        booktitle = {CVPR},
-        year = {2021}
-}</textarea>
-                <div class="CodeMirror cm-s-default CodeMirror-wrap">
-                    <div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 4px;"></div>
-                </div>
-            </div>
         </div>
-    </div> -->
+    </div>
+
+    <div class="col-md-10 col-md-offset-1">
+      <pre><code>@inproceedings{kuang2021neroic,
+          author = {Kuang, Zhengfei and Olszewski, Kyle and Chai, Menglei and Huang, Zeng and Achlioptas, Panos and Tulyakov, Sergey},
+          title = {NeROIC: Neural Object Capture and Rendering from Online Image Collections},
+          booktitle = {arXiv},
+          year = {2021}
+          }</code></pre>
+    </div>
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2" >
